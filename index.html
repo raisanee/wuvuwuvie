@@ -23,10 +23,9 @@ background:radial-gradient(white 1px, transparent 1px);
 background-size:50px 50px;
 opacity:0.08;
 pointer-events:none;
-z-index:0;
 }
 
-/* 🎵 player */
+/* 🎵 música */
 .music-player{
 position:fixed;
 top:12px;
@@ -39,17 +38,10 @@ gap:8px;
 
 padding:8px 12px;
 border-radius:20px;
-
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
 
-color:white;
 font-size:12px;
-}
-
-.music-player audio{
-height:25px;
-width:140px;
 }
 
 /* 📖 páginas */
@@ -61,28 +53,33 @@ align-items:center;
 flex-direction:column;
 padding:40px;
 text-align:center;
-
-opacity:0;
-transform:translateY(60px);
-transition:all 1s ease;
 }
 
-/* quando aparece na tela */
-section.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* 🖼 imagens */
+/* ✨ animação simples que SEMPRE funciona */
 img{
 max-width:90%;
 border-radius:12px;
 box-shadow:0 0 30px rgba(255,255,255,0.15);
-transition:0.4s;
+
+opacity:0;
+animation:fadeIn 1.2s forwards;
+}
+
+/* delay manual por página */
+section:nth-of-type(1) img{ animation-delay:0.2s; }
+section:nth-of-type(2) img{ animation-delay:0.5s; }
+section:nth-of-type(3) img{ animation-delay:0.8s; }
+section:nth-of-type(4) img{ animation-delay:1.1s; }
+
+@keyframes fadeIn{
+to{
+opacity:1;
+}
 }
 
 img:hover{
 transform:scale(1.02);
+transition:0.3s;
 }
 
 </style>
@@ -93,46 +90,16 @@ transform:scale(1.02);
 <div class="stars"></div>
 
 <div class="music-player">
-  <span>🎵 Our song</span>
+  🎵 Our song
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<section>
-  <img src="capa.png">
-</section>
-
-<section>
-  <img src="pagina2.png">
-</section>
-
-<section>
-  <img src="pagina3.png">
-</section>
-
-<section>
-  <img src="pagina4.png">
-</section>
-
-<script>
-const sections = document.querySelectorAll("section");
-
-function showOnScroll(){
-  const trigger = window.innerHeight * 0.85;
-
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-
-    if(top < trigger){
-      sec.classList.add("show");
-    }
-  });
-}
-
-window.addEventListener("scroll", showOnScroll);
-showOnScroll();
-</script>
+<section><img src="capa.png"></section>
+<section><img src="pagina2.png"></section>
+<section><img src="pagina3.png"></section>
+<section><img src="pagina4.png"></section>
 
 </body>
 </html>
