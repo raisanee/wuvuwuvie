@@ -14,18 +14,52 @@ color:white;
 overflow-x:hidden;
 }
 
-/* 🌙 estrelas */
+/* 🌌 estrelas */
 .stars{
 position:fixed;
 width:100%;
 height:100%;
-background:radial-gradient(white 1px, transparent 1px);
-background-size:50px 50px;
-opacity:0.08;
 pointer-events:none;
+overflow:hidden;
+z-index:0;
 }
 
-/* 🎵 player menor e mais delicado */
+/* ⭐ estrela */
+.star{
+position:absolute;
+width:7px;
+height:7px;
+background:white;
+clip-path: polygon(
+50% 0%,
+61% 35%,
+98% 35%,
+68% 57%,
+79% 91%,
+50% 70%,
+21% 91%,
+32% 57%,
+2% 35%,
+39% 35%
+);
+opacity:0.7;
+filter: drop-shadow(0 0 6px white);
+animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
+}
+
+@keyframes fall{
+to{
+transform: translateY(120vh);
+opacity: 0;
+}
+}
+
+@keyframes twinkle{
+0%,100%{opacity:0.2; transform:scale(0.8);}
+50%{opacity:1; transform:scale(1.2);}
+}
+
+/* 🎵 player */
 .music-player{
 position:fixed;
 top:10px;
@@ -38,45 +72,33 @@ gap:6px;
 
 padding:6px 10px;
 border-radius:16px;
-
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
-
 font-size:11px;
-color:white;
 }
 
-.music-player span{
-opacity:0.8;
-font-style:italic;
-}
-
-/* deixa o player menor */
-.music-player audio{
-height:24px;
-width:110px;
-}
-
-/* 📖 páginas */
+/* 📖 IMPORTANTE: agora sim o espaçamento bonito */
 section{
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+padding:80px 20px;   /* 💥 AQUI ESTÁ A ELEGÂNCIA */
+box-sizing:border-box;
 }
 
 /* 🖼 imagens */
 img{
 max-width:90%;
 border-radius:12px;
-box-shadow:0 0 30px rgba(255,255,255,0.15);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 
 opacity:0;
-transform:translateY(50px);
+transform:translateY(40px);
 transition:all 1s ease;
 }
 
-/* aparece no scroll */
+/* aparece suave */
 img.show{
 opacity:1;
 transform:translateY(0);
@@ -89,27 +111,29 @@ transform:translateY(0);
 
 <div class="stars"></div>
 
-<!-- 🎵 PLAYER -->
+<!-- 🎵 player -->
 <div class="music-player">
-  <span>play this song</span>
+  🎵 play this song
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<!-- 📖 CAPA -->
+<!-- 📖 páginas -->
 <section><img src="capa.png"></section>
 <section><img src="pagina2.png"></section>
 <section><img src="pagina3.png"></section>
 <section><img src="pagina4.png"></section>
 
 <script>
+
+/* scroll reveal */
 const images = document.querySelectorAll("img");
 
 function reveal(){
   const trigger = window.innerHeight * 0.85;
 
-  images.forEach(img => {
+  images.forEach(img=>{
     const top = img.getBoundingClientRect().top;
 
     if(top < trigger){
@@ -120,6 +144,27 @@ function reveal(){
 
 window.addEventListener("scroll", reveal);
 reveal();
+
+/* ⭐ estrelas */
+const container = document.querySelector(".stars");
+
+for(let i = 0; i < 35; i++){
+  const star = document.createElement("div");
+  star.classList.add("star");
+
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = -Math.random() * 100 + "vh";
+
+  const size = 5 + Math.random() * 6;
+  star.style.width = size + "px";
+  star.style.height = size + "px";
+
+  star.style.animationDuration = (10 + Math.random() * 15) + "s";
+  star.style.animationDelay = Math.random() * 5 + "s";
+
+  container.appendChild(star);
+}
+
 </script>
 
 </body>
