@@ -23,33 +23,38 @@ background:radial-gradient(white 1px, transparent 1px);
 background-size:50px 50px;
 opacity:0.08;
 pointer-events:none;
-z-index:0;
 }
 
-/* 🎵 player */
+/* 🎵 player menor e mais delicado */
 .music-player{
 position:fixed;
-top:12px;
-left:12px;
+top:10px;
+left:10px;
 z-index:999;
 
 display:flex;
 align-items:center;
-gap:8px;
+gap:6px;
 
-padding:8px 12px;
-border-radius:20px;
+padding:6px 10px;
+border-radius:16px;
 
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
 
+font-size:11px;
 color:white;
-font-size:12px;
 }
 
+.music-player span{
+opacity:0.8;
+font-style:italic;
+}
+
+/* deixa o player menor */
 .music-player audio{
-height:25px;
-width:140px;
+height:24px;
+width:110px;
 }
 
 /* 📖 páginas */
@@ -58,19 +63,6 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-padding:40px;
-text-align:center;
-
-opacity:0;
-transform:translateY(60px);
-transition:all 1s ease;
-}
-
-/* quando aparece na tela */
-section.show{
-opacity:1;
-transform:translateY(0);
 }
 
 /* 🖼 imagens */
@@ -78,11 +70,16 @@ img{
 max-width:90%;
 border-radius:12px;
 box-shadow:0 0 30px rgba(255,255,255,0.15);
-transition:0.4s;
+
+opacity:0;
+transform:translateY(50px);
+transition:all 1s ease;
 }
 
-img:hover{
-transform:scale(1.02);
+/* aparece no scroll */
+img.show{
+opacity:1;
+transform:translateY(0);
 }
 
 </style>
@@ -92,46 +89,37 @@ transform:scale(1.02);
 
 <div class="stars"></div>
 
+<!-- 🎵 PLAYER -->
 <div class="music-player">
-  <span>🎵 Our song</span>
+  <span>play this song</span>
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<section>
-  <img src="capa.png">
-</section>
-
-<section>
-  <img src="pagina2.png">
-</section>
-
-<section>
-  <img src="pagina3.png">
-</section>
-
-<section>
-  <img src="pagina4.png">
-</section>
+<!-- 📖 CAPA -->
+<section><img src="capa.png"></section>
+<section><img src="pagina2.png"></section>
+<section><img src="pagina3.png"></section>
+<section><img src="pagina4.png"></section>
 
 <script>
-const sections = document.querySelectorAll("section");
+const images = document.querySelectorAll("img");
 
-function showOnScroll(){
+function reveal(){
   const trigger = window.innerHeight * 0.85;
 
-  sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
+  images.forEach(img => {
+    const top = img.getBoundingClientRect().top;
 
     if(top < trigger){
-      sec.classList.add("show");
+      img.classList.add("show");
     }
   });
 }
 
-window.addEventListener("scroll", showOnScroll);
-showOnScroll();
+window.addEventListener("scroll", reveal);
+reveal();
 </script>
 
 </body>
