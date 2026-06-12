@@ -14,7 +14,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* 🌌 estrelas de fundo */
+/* 🌌 fundo de estrelas */
 .stars{
 position:fixed;
 width:100%;
@@ -24,13 +24,11 @@ overflow:hidden;
 z-index:0;
 }
 
-/* ⭐ estrela do fundo */
 .star{
 position:absolute;
-width:7px;
-height:7px;
+width:6px;
+height:6px;
 background:white;
-
 clip-path: polygon(
 50% 0%,
 61% 35%,
@@ -43,17 +41,13 @@ clip-path: polygon(
 2% 35%,
 39% 35%
 );
-
-opacity:0.7;
+opacity:0.6;
 filter: drop-shadow(0 0 6px white);
 animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
 }
 
 @keyframes fall{
-to{
-transform: translateY(120vh);
-opacity: 0;
-}
+to{transform: translateY(120vh); opacity:0;}
 }
 
 @keyframes twinkle{
@@ -67,29 +61,12 @@ position:fixed;
 top:10px;
 left:10px;
 z-index:999;
-
-display:flex;
-align-items:center;
-gap:6px;
-
 padding:6px 10px;
 border-radius:16px;
-
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
-
 font-size:11px;
 color:white;
-}
-
-.music-player span{
-opacity:0.8;
-font-style:italic;
-}
-
-.music-player audio{
-height:24px;
-width:110px;
 }
 
 /* 📖 páginas */
@@ -98,9 +75,9 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
+position:relative;
 padding:80px 20px;
 box-sizing:border-box;
-position:relative;
 z-index:1;
 }
 
@@ -109,11 +86,9 @@ img{
 max-width:90%;
 border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
-
 opacity:0;
 transform:translateY(40px);
-transition:all 1s ease;
-
+transition:1s ease;
 position:relative;
 z-index:2;
 }
@@ -124,54 +99,30 @@ transform:translateY(0);
 }
 
 /* 🌑 última página */
-.dark-stars{
-position:absolute;
-width:100%;
-height:100%;
-top:0;
-left:0;
-pointer-events:none;
+.dark{
+background:#05060a;
 overflow:hidden;
-z-index:10;
 }
 
-/* ⭐ estrelas caindo contínuas */
-.falling-star{
+/* ⭐ estrelas da última página (SEM JS — isso é o segredo agora) */
+.dark::before{
+content:"";
 position:absolute;
-top:-10vh;
-background:white;
-
-clip-path: polygon(
-50% 0%,
-61% 35%,
-98% 35%,
-68% 57%,
-79% 91%,
-50% 70%,
-21% 91%,
-32% 57%,
-2% 35%,
-39% 35%
-);
-
-opacity:0.95;
-filter: drop-shadow(0 0 10px white);
-
-animation-name: fallStar, twinkle;
-animation-timing-function: linear, ease-in-out;
-animation-iteration-count: infinite, infinite;
+width:200%;
+height:200%;
+top:-50%;
+left:-50%;
+background:
+radial-gradient(white 2px, transparent 3px) 0 0 / 60px 60px;
+opacity:0.6;
+animation: moveStars 8s linear infinite;
+z-index:3;
+pointer-events:none;
 }
 
-@keyframes fallStar{
-to{
-transform: translateY(120vh);
-opacity: 0;
-}
-}
-
-@keyframes twinkle{
-0%,100%{opacity:0.2; transform:scale(0.8);}
-50%{opacity:1; transform:scale(1.2);}
+@keyframes moveStars{
+from{transform:translateY(-20%);}
+to{transform:translateY(20%);}
 }
 
 </style>
@@ -183,24 +134,20 @@ opacity: 0;
 
 <!-- 🎵 PLAYER -->
 <div class="music-player">
-  <span>play this song</span>
+  🎵 play this song
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<!-- 📖 CAPA -->
+<!-- 📖 PÁGINAS -->
 <section><img src="capa.png"></section>
 <section><img src="pagina2.png"></section>
 <section><img src="pagina3.png"></section>
 
 <!-- 🌑 ÚLTIMA PÁGINA -->
-<section style="background:#05060a; position:relative; overflow:hidden;">
-
-  <div class="dark-stars"></div>
-
+<section class="dark">
   <img src="pagina4.png">
-
 </section>
 
 <script>
@@ -212,9 +159,7 @@ function reveal(){
   const trigger = window.innerHeight * 0.85;
 
   images.forEach(img=>{
-    const top = img.getBoundingClientRect().top;
-
-    if(top < trigger){
+    if(img.getBoundingClientRect().top < trigger){
       img.classList.add("show");
     }
   });
@@ -223,50 +168,25 @@ function reveal(){
 window.addEventListener("scroll", reveal);
 reveal();
 
-/* ⭐ estrelas fundo */
+/* estrelas do fundo */
 const container = document.querySelector(".stars");
 
-for(let i = 0; i < 35; i++){
+for(let i=0;i<40;i++){
   const star = document.createElement("div");
   star.classList.add("star");
 
-  star.style.left = Math.random() * 100 + "vw";
-  star.style.top = -Math.random() * 100 + "vh";
+  star.style.left = Math.random()*100 + "vw";
+  star.style.top = -Math.random()*100 + "vh";
 
-  const size = 5 + Math.random() * 6;
+  const size = 4 + Math.random()*6;
   star.style.width = size + "px";
   star.style.height = size + "px";
 
-  star.style.animationDuration = (10 + Math.random() * 15) + "s";
-  star.style.animationDelay = Math.random() * 5 + "s";
+  star.style.animationDuration = (8 + Math.random()*10) + "s";
+  star.style.animationDelay = Math.random()*5 + "s";
 
   container.appendChild(star);
 }
-
-/* 🌠 chuva contínua na última página */
-const darkContainer = document.querySelector(".dark-stars");
-
-function createStar(){
-  const star = document.createElement("div");
-  star.classList.add("falling-star");
-
-  const size = 6 + Math.random() * 10;
-  star.style.width = size + "px";
-  star.style.height = size + "px";
-
-  star.style.left = Math.random() * 100 + "%";
-
-  const duration = 6 + Math.random() * 8;
-  star.style.animationDuration = `${duration}s, ${2 + Math.random()*2}s`;
-
-  darkContainer.appendChild(star);
-
-  setTimeout(() => {
-    star.remove();
-  }, duration * 1000);
-}
-
-setInterval(createStar, 150);
 
 </script>
 
