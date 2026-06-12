@@ -14,7 +14,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* 🌙 fundo de estrelas */
+/* 🌙 estrelas */
 .stars{
 position:fixed;
 width:100%;
@@ -26,7 +26,7 @@ pointer-events:none;
 z-index:0;
 }
 
-/* 🎵 música no topo */
+/* 🎵 player */
 .music-player{
 position:fixed;
 top:12px;
@@ -69,16 +69,17 @@ padding:40px;
 text-align:center;
 
 opacity:0;
-transform:translateY(40px);
-animation:fadeIn 1s forwards;
-z-index:1;
+transform:translateY(60px);
+animation:fadeIn 1s ease forwards;
 }
 
-section:nth-child(2){ animation-delay:0s; }
-section:nth-child(3){ animation-delay:0.3s; }
-section:nth-child(4){ animation-delay:0.6s; }
-section:nth-child(5){ animation-delay:0.9s; }
+/* anima cada página sem quebrar */
+section:nth-of-type(1){ animation-delay:0.1s; }
+section:nth-of-type(2){ animation-delay:0.3s; }
+section:nth-of-type(3){ animation-delay:0.5s; }
+section:nth-of-type(4){ animation-delay:0.7s; }
 
+/* ✨ animação */
 @keyframes fadeIn{
 to{
 opacity:1;
@@ -91,12 +92,17 @@ img{
 max-width:90%;
 border-radius:12px;
 box-shadow:0 0 30px rgba(255,255,255,0.15);
+transition:0.4s ease;
 }
 
-/* ✨ leve brilho ao passar o mouse */
+/* hover mais suave */
 img:hover{
-transform:scale(1.01);
-transition:0.3s;
+transform:scale(1.02);
+}
+
+/* leve suavidade no scroll */
+html{
+scroll-behavior:smooth;
 }
 
 </style>
@@ -106,7 +112,7 @@ transition:0.3s;
 
 <div class="stars"></div>
 
-<!-- 🎵 PLAYER FIXO -->
+<!-- 🎵 música fixa -->
 <div class="music-player">
   <span>🎵 Our song</span>
   <audio controls autoplay loop>
