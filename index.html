@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>To My Favorite Person</title>
+<title>To My Hunnie</title>
 
 <style>
 
@@ -11,10 +11,10 @@ margin:0;
 background:#0b0b14;
 font-family:Georgia, serif;
 color:white;
-overflow:hidden;
+overflow-x:hidden;
 }
 
-/* 💌 ENVELOPE SCREEN */
+/* 💌 ENVELOPE */
 #envelope-screen{
 position:fixed;
 width:100%;
@@ -27,6 +27,7 @@ background:radial-gradient(circle at center, #1a1a2e, #0b0b14);
 z-index:999;
 text-align:center;
 cursor:pointer;
+transition:opacity 0.8s ease;
 }
 
 .envelope{
@@ -50,7 +51,7 @@ font-size:12px;
 opacity:0.6;
 }
 
-/* 🌌 background stars */
+/* 🌌 fundo estrelas */
 .stars{
 position:fixed;
 width:100%;
@@ -66,7 +67,6 @@ position:absolute;
 width:6px;
 height:6px;
 background:white;
-
 clip-path: polygon(
 50% 0%,
 61% 35%,
@@ -79,7 +79,6 @@ clip-path: polygon(
 2% 35%,
 39% 35%
 );
-
 opacity:0.7;
 filter: drop-shadow(0 0 6px white);
 animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
@@ -94,7 +93,7 @@ to{transform: translateY(120vh); opacity:0;}
 50%{opacity:1; transform:scale(1.2);}
 }
 
-/* 🎵 music player */
+/* 🎵 player */
 .music-player{
 position:fixed;
 top:10px;
@@ -109,12 +108,15 @@ font-size:11px;
 color:white;
 }
 
-/* 📖 scrapbook */
+/* 📖 conteúdo */
 #content{
 display:none;
+opacity:0;
+transition:1.2s ease;
+transform:translateY(20px);
 }
 
-/* pages */
+/* páginas */
 section{
 min-height:100vh;
 display:flex;
@@ -122,9 +124,11 @@ justify-content:center;
 align-items:center;
 padding:80px 20px;
 box-sizing:border-box;
+position:relative;
+z-index:1;
 }
 
-/* images */
+/* imagens */
 img{
 max-width:90%;
 border-radius:12px;
@@ -153,10 +157,10 @@ transform:translateY(0);
   <p>Open when you're ready</p>
 </div>
 
-<!-- 🌌 stars -->
+<!-- 🌌 estrelas -->
 <div class="stars"></div>
 
-<!-- 🎵 music -->
+<!-- 🎵 player -->
 <div class="music-player">
   🎵 play this song
   <audio controls loop>
@@ -164,7 +168,7 @@ transform:translateY(0);
   </audio>
 </div>
 
-<!-- 📖 CONTENT -->
+<!-- 📖 conteúdo -->
 <div id="content">
 
 <section><img src="capa.png"></section>
@@ -176,7 +180,7 @@ transform:translateY(0);
 
 <script>
 
-/* open envelope */
+/* abrir envelope */
 document.getElementById("envelope-screen").addEventListener("click", function(){
 
   this.style.opacity = "0";
@@ -185,9 +189,18 @@ document.getElementById("envelope-screen").addEventListener("click", function(){
     this.style.display = "none";
   }, 800);
 
-  document.getElementById("content").style.display = "block";
-  document.querySelector(".music-player").style.display = "flex";
-  document.querySelector(".stars").style.display = "block";
+  const content = document.getElementById("content");
+  const music = document.querySelector(".music-player");
+  const stars = document.querySelector(".stars");
+
+  content.style.display = "block";
+  music.style.display = "flex";
+  stars.style.display = "block";
+
+  setTimeout(()=>{
+    content.style.opacity = "1";
+    content.style.transform = "translateY(0)";
+  }, 100);
 
 });
 
@@ -206,7 +219,7 @@ function reveal(){
 
 window.addEventListener("scroll", reveal);
 
-/* stars */
+/* estrelas */
 const container = document.querySelector(".stars");
 
 for(let i=0;i<40;i++){
