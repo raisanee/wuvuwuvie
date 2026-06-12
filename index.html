@@ -24,7 +24,7 @@ overflow:hidden;
 z-index:0;
 }
 
-/* ⭐ estrela */
+/* ⭐ estrela geral */
 .star{
 position:absolute;
 width:7px;
@@ -59,7 +59,7 @@ opacity: 0;
 50%{opacity:1; transform:scale(1.2);}
 }
 
-/* 🎵 player */
+/* 🎵 player menor e mais delicado */
 .music-player{
 position:fixed;
 top:10px;
@@ -72,18 +72,31 @@ gap:6px;
 
 padding:6px 10px;
 border-radius:16px;
+
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
+
 font-size:11px;
+color:white;
 }
 
-/* 📖 IMPORTANTE: agora sim o espaçamento bonito */
+.music-player span{
+opacity:0.8;
+font-style:italic;
+}
+
+.music-player audio{
+height:24px;
+width:110px;
+}
+
+/* 📖 páginas */
 section{
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:80px 20px;   /* 💥 AQUI ESTÁ A ELEGÂNCIA */
+padding:80px 20px;
 box-sizing:border-box;
 }
 
@@ -98,10 +111,52 @@ transform:translateY(40px);
 transition:all 1s ease;
 }
 
-/* aparece suave */
 img.show{
 opacity:1;
 transform:translateY(0);
+}
+
+/* 🌑 última página com estrelas caindo */
+.dark-stars{
+position:absolute;
+width:100%;
+height:100%;
+top:0;
+left:0;
+pointer-events:none;
+overflow:hidden;
+}
+
+.falling-star{
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+
+clip-path: polygon(
+50% 0%,
+61% 35%,
+98% 35%,
+68% 57%,
+79% 91%,
+50% 70%,
+21% 91%,
+32% 57%,
+2% 35%,
+39% 35%
+);
+
+opacity:0.8;
+filter: drop-shadow(0 0 6px white);
+
+animation: fallStar linear infinite, twinkle 2.5s ease-in-out infinite;
+}
+
+@keyframes fallStar{
+to{
+transform: translateY(120vh);
+opacity:0;
+}
 }
 
 </style>
@@ -111,23 +166,30 @@ transform:translateY(0);
 
 <div class="stars"></div>
 
-<!-- 🎵 player -->
+<!-- 🎵 PLAYER -->
 <div class="music-player">
-  🎵 play this song
+  <span>play this song</span>
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<!-- 📖 páginas -->
+<!-- 📖 CAPA -->
 <section><img src="capa.png"></section>
 <section><img src="pagina2.png"></section>
 <section><img src="pagina3.png"></section>
-<section><img src="pagina4.png"></section>
+
+<!-- 🌑 ÚLTIMA PÁGINA COM ESTRELAS -->
+<section style="background:#05060a; position:relative; overflow:hidden;">
+
+  <div class="dark-stars"></div>
+
+  <img src="pagina4.png">
+
+</section>
 
 <script>
 
-/* scroll reveal */
 const images = document.querySelectorAll("img");
 
 function reveal(){
@@ -145,7 +207,7 @@ function reveal(){
 window.addEventListener("scroll", reveal);
 reveal();
 
-/* ⭐ estrelas */
+/* ⭐ estrelas gerais */
 const container = document.querySelector(".stars");
 
 for(let i = 0; i < 35; i++){
@@ -163,6 +225,26 @@ for(let i = 0; i < 35; i++){
   star.style.animationDelay = Math.random() * 5 + "s";
 
   container.appendChild(star);
+}
+
+/* 🌠 estrelas da última página */
+const darkContainer = document.querySelector(".dark-stars");
+
+for(let i = 0; i < 40; i++){
+  const star = document.createElement("div");
+  star.classList.add("falling-star");
+
+  star.style.left = Math.random() * 100 + "%";
+  star.style.top = -Math.random() * 100 + "px";
+
+  const size = 4 + Math.random() * 6;
+  star.style.width = size + "px";
+  star.style.height = size + "px";
+
+  star.style.animationDuration = (6 + Math.random() * 8) + "s";
+  star.style.animationDelay = Math.random() * 5 + "s";
+
+  darkContainer.appendChild(star);
 }
 
 </script>
