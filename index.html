@@ -45,12 +45,6 @@ backdrop-filter: blur(8px);
 
 color:white;
 font-size:12px;
-
-box-shadow:0 0 20px rgba(255,255,255,0.1);
-}
-
-.music-player span{
-opacity:0.8;
 }
 
 .music-player audio{
@@ -70,21 +64,13 @@ text-align:center;
 
 opacity:0;
 transform:translateY(60px);
-animation:fadeIn 1s ease forwards;
+transition:all 1s ease;
 }
 
-/* anima cada página sem quebrar */
-section:nth-of-type(1){ animation-delay:0.1s; }
-section:nth-of-type(2){ animation-delay:0.3s; }
-section:nth-of-type(3){ animation-delay:0.5s; }
-section:nth-of-type(4){ animation-delay:0.7s; }
-
-/* ✨ animação */
-@keyframes fadeIn{
-to{
+/* quando aparece na tela */
+section.show{
 opacity:1;
 transform:translateY(0);
-}
 }
 
 /* 🖼 imagens */
@@ -92,17 +78,11 @@ img{
 max-width:90%;
 border-radius:12px;
 box-shadow:0 0 30px rgba(255,255,255,0.15);
-transition:0.4s ease;
+transition:0.4s;
 }
 
-/* hover mais suave */
 img:hover{
 transform:scale(1.02);
-}
-
-/* leve suavidade no scroll */
-html{
-scroll-behavior:smooth;
 }
 
 </style>
@@ -112,7 +92,6 @@ scroll-behavior:smooth;
 
 <div class="stars"></div>
 
-<!-- 🎵 música fixa -->
 <div class="music-player">
   <span>🎵 Our song</span>
   <audio controls autoplay loop>
@@ -120,25 +99,40 @@ scroll-behavior:smooth;
   </audio>
 </div>
 
-<!-- 📖 CAPA -->
 <section>
   <img src="capa.png">
 </section>
 
-<!-- 📖 PÁGINA 2 -->
 <section>
   <img src="pagina2.png">
 </section>
 
-<!-- 📖 PÁGINA 3 -->
 <section>
   <img src="pagina3.png">
 </section>
 
-<!-- 📖 PÁGINA 4 -->
 <section>
   <img src="pagina4.png">
 </section>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+function showOnScroll(){
+  const trigger = window.innerHeight * 0.85;
+
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+
+    if(top < trigger){
+      sec.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", showOnScroll);
+showOnScroll();
+</script>
 
 </body>
 </html>
