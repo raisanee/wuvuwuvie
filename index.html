@@ -25,19 +25,36 @@ opacity:0.08;
 pointer-events:none;
 }
 
-/* 🎵 player */
+/* 🎵 player menor e mais delicado */
 .music-player{
 position:fixed;
-top:12px;
-left:12px;
+top:10px;
+left:10px;
 z-index:999;
 
-padding:10px 14px;
-border-radius:20px;
+display:flex;
+align-items:center;
+gap:6px;
+
+padding:6px 10px;
+border-radius:16px;
+
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
 
-font-size:12px;
+font-size:11px;
+color:white;
+}
+
+.music-player span{
+opacity:0.8;
+font-style:italic;
+}
+
+/* deixa o player menor */
+.music-player audio{
+height:24px;
+width:110px;
 }
 
 /* 📖 páginas */
@@ -48,7 +65,7 @@ justify-content:center;
 align-items:center;
 }
 
-/* 🖼 imagens começam invisíveis */
+/* 🖼 imagens */
 img{
 max-width:90%;
 border-radius:12px;
@@ -59,7 +76,7 @@ transform:translateY(50px);
 transition:all 1s ease;
 }
 
-/* quando ativar */
+/* aparece no scroll */
 img.show{
 opacity:1;
 transform:translateY(0);
@@ -72,13 +89,15 @@ transform:translateY(0);
 
 <div class="stars"></div>
 
+<!-- 🎵 PLAYER -->
 <div class="music-player">
-🎵 Our song
-<audio controls autoplay loop>
-<source src="musica.mp3" type="audio/mpeg">
-</audio>
+  <span>play this song</span>
+  <audio controls autoplay loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
+<!-- 📖 CAPA -->
 <section><img src="capa.png"></section>
 <section><img src="pagina2.png"></section>
 <section><img src="pagina3.png"></section>
