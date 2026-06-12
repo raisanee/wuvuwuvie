@@ -14,7 +14,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* 🌌 estrelas */
+/* 🌌 estrelas gerais do fundo */
 .stars{
 position:fixed;
 width:100%;
@@ -24,12 +24,13 @@ overflow:hidden;
 z-index:0;
 }
 
-/* ⭐ estrela geral */
+/* ⭐ estrela do fundo */
 .star{
 position:absolute;
 width:7px;
 height:7px;
 background:white;
+
 clip-path: polygon(
 50% 0%,
 61% 35%,
@@ -42,6 +43,7 @@ clip-path: polygon(
 2% 35%,
 39% 35%
 );
+
 opacity:0.7;
 filter: drop-shadow(0 0 6px white);
 animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
@@ -59,7 +61,7 @@ opacity: 0;
 50%{opacity:1; transform:scale(1.2);}
 }
 
-/* 🎵 player menor e mais delicado */
+/* 🎵 player */
 .music-player{
 position:fixed;
 top:10px;
@@ -98,6 +100,8 @@ justify-content:center;
 align-items:center;
 padding:80px 20px;
 box-sizing:border-box;
+position:relative;
+z-index:1;
 }
 
 /* 🖼 imagens */
@@ -109,6 +113,9 @@ box-shadow:0 10px 30px rgba(0,0,0,0.4);
 opacity:0;
 transform:translateY(40px);
 transition:all 1s ease;
+
+position:relative;
+z-index:2;
 }
 
 img.show{
@@ -116,7 +123,7 @@ opacity:1;
 transform:translateY(0);
 }
 
-/* 🌑 última página com estrelas caindo */
+/* 🌑 última página (com estrelas por cima) */
 .dark-stars{
 position:absolute;
 width:100%;
@@ -125,12 +132,14 @@ top:0;
 left:0;
 pointer-events:none;
 overflow:hidden;
+z-index:5;
 }
 
+/* ⭐ estrelas da última página */
 .falling-star{
 position:absolute;
-width:6px;
-height:6px;
+width:10px;
+height:10px;
 background:white;
 
 clip-path: polygon(
@@ -146,10 +155,10 @@ clip-path: polygon(
 39% 35%
 );
 
-opacity:0.8;
-filter: drop-shadow(0 0 6px white);
+opacity:0.95;
+filter: drop-shadow(0 0 10px white);
 
-animation: fallStar linear infinite, twinkle 2.5s ease-in-out infinite;
+animation: fallStar linear infinite, twinkle 2.2s ease-in-out infinite;
 }
 
 @keyframes fallStar{
@@ -179,7 +188,7 @@ opacity:0;
 <section><img src="pagina2.png"></section>
 <section><img src="pagina3.png"></section>
 
-<!-- 🌑 ÚLTIMA PÁGINA COM ESTRELAS -->
+<!-- 🌑 ÚLTIMA PÁGINA -->
 <section style="background:#05060a; position:relative; overflow:hidden;">
 
   <div class="dark-stars"></div>
@@ -227,7 +236,7 @@ for(let i = 0; i < 35; i++){
   container.appendChild(star);
 }
 
-/* 🌠 estrelas da última página */
+/* 🌠 estrelas da última página (POR CIMA) */
 const darkContainer = document.querySelector(".dark-stars");
 
 for(let i = 0; i < 40; i++){
@@ -237,7 +246,7 @@ for(let i = 0; i < 40; i++){
   star.style.left = Math.random() * 100 + "%";
   star.style.top = -Math.random() * 100 + "px";
 
-  const size = 4 + Math.random() * 6;
+  const size = 8 + Math.random() * 10;
   star.style.width = size + "px";
   star.style.height = size + "px";
 
