@@ -28,6 +28,8 @@ z-index:999;
 text-align:center;
 cursor:pointer;
 transition:opacity 0.8s ease;
+padding:20px;
+box-sizing:border-box;
 }
 
 .envelope{
@@ -40,18 +42,20 @@ animation: float 2s ease-in-out infinite;
 50%{transform:translateY(-10px);}
 }
 
+/* ✨ TEXTO DO ENVELOPE (MAIOR E RESPONSIVO) */
 #envelope-screen h1{
-font-size:18px;
+font-size: clamp(24px, 5vw, 36px);
 margin-top:20px;
-opacity:0.85;
+opacity:0.9;
 }
 
 #envelope-screen p{
-font-size:12px;
-opacity:0.6;
+font-size: clamp(15px, 3.5vw, 20px);
+opacity:0.75;
+max-width: 90%;
 }
 
-/* 🌌 fundo estrelas */
+/* 🌌 estrelas */
 .stars{
 position:fixed;
 width:100%;
@@ -153,6 +157,7 @@ transform:translateY(0);
 <!-- 💌 ENVELOPE -->
 <div id="envelope-screen">
   <div class="envelope">✉️</div>
+
   <h1>You received something</h1>
   <p>Don’t rush this… This experience is best on a computer 💻</p>
 </div>
