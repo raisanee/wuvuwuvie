@@ -8,20 +8,91 @@
 
 body{
 margin:0;
+background:#0b0b14;
 font-family:Georgia, serif;
+color:white;
 overflow-x:hidden;
 }
 
-/* 🌟 FUNDO BASE CREME (primeiras páginas) */
-.creme{
-background:linear-gradient(#f5efe6, #f3e9dd);
-color:#222;
+/* 🌌 ESTRELAS DE FUNDO (MELHORADAS) */
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+z-index:0;
 }
 
-/* 🌑 ÚLTIMA PÁGINA PRETA */
-.dark{
-background:#05060a;
+/* ⭐ estrela bonita */
+.star{
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+opacity:0.6;
+
+/* formato de estrela (cruz + brilho) */
+clip-path: polygon(
+50% 0%,
+61% 35%,
+98% 35%,
+68% 57%,
+79% 91%,
+50% 70%,
+21% 91%,
+32% 57%,
+2% 35%,
+39% 35%
+);
+
+animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
+filter: drop-shadow(0 0 6px white);
+}
+
+/* 🌠 cair devagar */
+@keyframes fall{
+to{
+transform: translateY(120vh);
+opacity: 0;
+}
+}
+
+/* ✨ piscar */
+@keyframes twinkle{
+0%,100%{opacity:0.2; transform:scale(0.8);}
+50%{opacity:1; transform:scale(1.2);}
+}
+
+/* 🎵 player menor e mais delicado */
+.music-player{
+position:fixed;
+top:10px;
+left:10px;
+z-index:999;
+
+display:flex;
+align-items:center;
+gap:6px;
+
+padding:6px 10px;
+border-radius:16px;
+
+background:rgba(255,255,255,0.08);
+backdrop-filter: blur(8px);
+
+font-size:11px;
 color:white;
+}
+
+.music-player span{
+opacity:0.8;
+font-style:italic;
+}
+
+.music-player audio{
+height:24px;
+width:110px;
 }
 
 /* 📖 páginas */
@@ -30,107 +101,23 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-padding:40px;
-text-align:center;
-position:relative;
-overflow:hidden;
 }
 
 /* 🖼 imagens */
 img{
 max-width:90%;
 border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+box-shadow:0 0 30px rgba(255,255,255,0.15);
+
 opacity:0;
-transform:translateY(40px);
+transform:translateY(50px);
 transition:all 1s ease;
 }
 
+/* aparece no scroll */
 img.show{
 opacity:1;
 transform:translateY(0);
-}
-
-/* 🎵 player */
-.music-player{
-position:fixed;
-top:10px;
-left:10px;
-z-index:999;
-padding:6px 10px;
-border-radius:16px;
-background:rgba(255,255,255,0.2);
-backdrop-filter: blur(8px);
-font-size:11px;
-}
-
-/* ✨ BRILHOS SUAVES */
-.sparkle{
-position:absolute;
-width:4px;
-height:4px;
-background:white;
-border-radius:50%;
-opacity:0.4;
-animation:blink 3s infinite ease-in-out;
-}
-
-@keyframes blink{
-0%,100%{opacity:0;}
-50%{opacity:0.6;}
-}
-
-/* ✈️ AVIÃO FLUTUANDO */
-.plane{
-position:absolute;
-top:20%;
-left:-100px;
-width:60px;
-opacity:0.7;
-animation:fly 12s linear infinite;
-}
-
-@keyframes fly{
-0%{transform:translateX(0) translateY(0);}
-50%{transform:translateX(120vw) translateY(-20px);}
-100%{transform:translateX(240vw) translateY(0);}
-}
-
-/* 🌙 LUA */
-.moon{
-position:absolute;
-top:60px;
-right:60px;
-width:90px;
-height:90px;
-border-radius:50%;
-background:#f5f3d7;
-box-shadow:0 0 30px rgba(255,255,200,0.5);
-animation:pulse 4s infinite ease-in-out;
-}
-
-@keyframes pulse{
-0%,100%{transform:scale(1); opacity:0.8;}
-50%{transform:scale(1.08); opacity:1;}
-}
-
-/* 🌠 ESTRELAS CAINDO */
-.falling-star{
-position:absolute;
-top:-20px;
-width:2px;
-height:2px;
-background:white;
-opacity:0.6;
-animation:fall linear infinite;
-}
-
-@keyframes fall{
-to{
-transform:translateY(120vh);
-opacity:0;
-}
 }
 
 </style>
@@ -138,53 +125,32 @@ opacity:0;
 
 <body>
 
-<!-- 🎵 música -->
+<div class="stars"></div>
+
+<!-- 🎵 PLAYER -->
 <div class="music-player">
-  🎵 play this song
+  <span>play this song</span>
   <audio controls autoplay loop>
     <source src="musica.mp3" type="audio/mpeg">
   </audio>
 </div>
 
-<!-- ✨ CAPA -->
-<section class="creme">
-
-<img src="capa.png">
-
-<!-- aviãozinho -->
-<img src="plane.png" class="plane">
-
-</section>
-
-<!-- ✨ PÁGINA 2 -->
-<section class="creme">
-<img src="pagina2.png">
-</section>
-
-<!-- ✨ PÁGINA 3 -->
-<section class="creme">
-<img src="pagina3.png">
-</section>
-
-<!-- 🌑 ÚLTIMA PÁGINA -->
-<section class="dark">
-
-<div class="moon"></div>
-
-<img src="pagina4.png">
-
-</section>
+<!-- 📖 CAPA -->
+<section><img src="capa.png"></section>
+<section><img src="pagina2.png"></section>
+<section><img src="pagina3.png"></section>
+<section><img src="pagina4.png"></section>
 
 <script>
 
-/* ✨ revelar imagens */
 const images = document.querySelectorAll("img");
 
 function reveal(){
   const trigger = window.innerHeight * 0.85;
 
-  images.forEach(img=>{
+  images.forEach(img => {
     const top = img.getBoundingClientRect().top;
+
     if(top < trigger){
       img.classList.add("show");
     }
@@ -194,30 +160,24 @@ function reveal(){
 window.addEventListener("scroll", reveal);
 reveal();
 
-/* ✨ criar brilhos nas páginas claras */
-const creamSections = document.querySelectorAll(".creme");
+/* ⭐ gerar estrelas */
+const container = document.querySelector(".stars");
 
-creamSections.forEach(sec=>{
-  for(let i=0;i<20;i++){
-    let s=document.createElement("div");
-    s.classList.add("sparkle");
-    s.style.top=Math.random()*100+"%";
-    s.style.left=Math.random()*100+"%";
-    s.style.animationDuration=(2+Math.random()*3)+"s";
-    sec.appendChild(s);
-  }
-});
+for(let i = 0; i < 25; i++){
+  const star = document.createElement("div");
+  star.classList.add("star");
 
-/* 🌠 estrelas caindo na última página */
-const dark = document.querySelector(".dark");
+  star.style.left = Math.random() * 100 + "vw";
+  star.style.top = -Math.random() * 100 + "vh";
 
-for(let i=0;i<40;i++){
-  let star=document.createElement("div");
-  star.classList.add("falling-star");
-  star.style.left=Math.random()*100+"%";
-  star.style.animationDuration=(3+Math.random()*5)+"s";
-  star.style.animationDelay=Math.random()*5+"s";
-  dark.appendChild(star);
+  const size = 4 + Math.random() * 6;
+  star.style.width = size + "px";
+  star.style.height = size + "px";
+
+  star.style.animationDuration = (8 + Math.random() * 10) + "s";
+  star.style.animationDelay = Math.random() * 5 + "s";
+
+  container.appendChild(star);
 }
 
 </script>
