@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>To My Hunnie</title>
+<title>To My Favorite Person</title>
 
 <style>
 
@@ -29,6 +29,7 @@ position:absolute;
 width:6px;
 height:6px;
 background:white;
+
 clip-path: polygon(
 50% 0%,
 61% 35%,
@@ -41,13 +42,17 @@ clip-path: polygon(
 2% 35%,
 39% 35%
 );
-opacity:0.6;
+
+opacity:0.7;
 filter: drop-shadow(0 0 6px white);
 animation: fall linear infinite, twinkle 2.5s ease-in-out infinite;
 }
 
 @keyframes fall{
-to{transform: translateY(120vh); opacity:0;}
+to{
+transform: translateY(120vh);
+opacity: 0;
+}
 }
 
 @keyframes twinkle{
@@ -61,10 +66,17 @@ position:fixed;
 top:10px;
 left:10px;
 z-index:999;
+
+display:flex;
+align-items:center;
+gap:6px;
+
 padding:6px 10px;
 border-radius:16px;
+
 background:rgba(255,255,255,0.08);
 backdrop-filter: blur(8px);
+
 font-size:11px;
 color:white;
 }
@@ -75,9 +87,9 @@ min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-position:relative;
 padding:80px 20px;
 box-sizing:border-box;
+position:relative;
 z-index:1;
 }
 
@@ -104,7 +116,7 @@ background:#05060a;
 overflow:hidden;
 }
 
-/* ⭐ estrelas da última página (SEM JS — isso é o segredo agora) */
+/* ✨ estrelas NATURAIS da última página */
 .dark::before{
 content:"";
 position:absolute;
@@ -112,17 +124,38 @@ width:200%;
 height:200%;
 top:-50%;
 left:-50%;
-background:
-radial-gradient(white 2px, transparent 3px) 0 0 / 60px 60px;
-opacity:0.6;
-animation: moveStars 8s linear infinite;
-z-index:3;
 pointer-events:none;
+z-index:3;
+
+/* estrelas orgânicas (não grid) */
+background:
+radial-gradient(circle at 12% 18%, white 2px, transparent 3px),
+radial-gradient(circle at 25% 70%, white 1.5px, transparent 3px),
+radial-gradient(circle at 40% 35%, white 1px, transparent 2px),
+radial-gradient(circle at 60% 80%, white 2px, transparent 3px),
+radial-gradient(circle at 75% 25%, white 1.2px, transparent 2px),
+radial-gradient(circle at 88% 60%, white 1.8px, transparent 3px),
+radial-gradient(circle at 50% 50%, white 1px, transparent 2px);
+
+opacity:0.6;
+filter: blur(0.2px);
+animation: floatStars 6s ease-in-out infinite;
 }
 
-@keyframes moveStars{
-from{transform:translateY(-20%);}
-to{transform:translateY(20%);}
+/* leve movimento orgânico */
+@keyframes floatStars{
+0%{
+transform:translateY(0);
+opacity:0.4;
+}
+50%{
+transform:translateY(-8px);
+opacity:0.7;
+}
+100%{
+transform:translateY(0);
+opacity:0.4;
+}
 }
 
 </style>
@@ -168,7 +201,7 @@ function reveal(){
 window.addEventListener("scroll", reveal);
 reveal();
 
-/* estrelas do fundo */
+/* ⭐ estrelas do fundo */
 const container = document.querySelector(".stars");
 
 for(let i=0;i<40;i++){
